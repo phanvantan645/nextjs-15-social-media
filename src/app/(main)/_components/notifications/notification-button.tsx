@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import kyInstance from "@/lib/ky";
 import { NotificationCountInfo } from "@/lib/types";
+import { routes } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";
 import { Bell } from "lucide-react";
 import Link from "next/link";
@@ -28,10 +29,10 @@ export default function NotificationButton({
     <Button
       variant="ghost"
       className="flex items-center justify-start gap-3"
-      title="Thông báo"
+      title={routes.notifications.title}
       asChild
     >
-      <Link href="/notifications">
+      <Link href={routes.notifications.path}>
         <div className="relative">
           <Bell />
           {!!data?.unreadCount && (
@@ -40,7 +41,7 @@ export default function NotificationButton({
             </span>
           )}
         </div>
-        <span className="hidden lg:inline">Thông báo</span>
+        <span className="hidden lg:inline">{routes.notifications.title}</span>
       </Link>
     </Button>
   );

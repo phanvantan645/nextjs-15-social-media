@@ -5,7 +5,7 @@ import ChatSidebar from "@/app/(main)/_components/messages/chat-sidebar";
 import useInitializeChatClient from "@/app/(main)/messages/useInitializeChatClient";
 import { Loader2 } from "lucide-react";
 import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Chat as StreamChat } from "stream-chat-react";
 
 export default function Chat() {

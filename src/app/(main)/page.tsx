@@ -4,7 +4,7 @@ import PostEditor from "@/app/(main)/_components/posts/editor/post-editor";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import TrendsSidebar from "@/components/ui/trends-sidebar";
 
-async function Home() {
+export default async function Home() {
   return (
     <main className="flex w-full min-w-0 gap-5">
       <div className="w-full min-w-0 space-y-5">
@@ -36,5 +36,3 @@ async function Home() {
     </main>
   );
 }
-
-export default Home;

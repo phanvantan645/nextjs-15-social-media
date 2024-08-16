@@ -11,6 +11,7 @@ import { fileRoute } from "@/app/api/uploadthing/core";
 import { extractRouterConfig } from "uploadthing/server";
 import { Suspense } from "react";
 import LoadingPage from "@/app/loading";
+import { appDescription, appName, routes } from "@/lib/utils";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -23,10 +24,10 @@ const geistMono = localFont({
 
 export const metadata: Metadata = {
   title: {
-    default: "Trang chủ",
-    template: "%s | Handbook",
+    default: routes.home.title,
+    template: `%s | ${appName}`,
   },
-  description: "The social media app power by vantan",
+  description: appDescription,
 };
 
 export default async function RootLayout({

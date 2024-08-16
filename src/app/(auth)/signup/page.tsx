@@ -3,9 +3,10 @@ import signUpImage from "@/assets/signup-image.jpg";
 import Image from "next/image";
 import Link from "next/link";
 import SignUpForm from "@/app/(auth)/signup/signup-form";
+import { appName, routes } from "@/lib/utils";
 
 export const metadata: Metadata = {
-  title: "Đăng ký",
+  title: routes.signup.title,
 };
 
 export default function SignupPage() {
@@ -16,7 +17,7 @@ export default function SignupPage() {
           <div className="space-y-1 text-center">
             <h1 className="text-3xl font-bold">
               Đăng ký vào{" "}
-              <span className="font-bold italic text-primary">handbook</span>
+              <span className="font-bold italic text-primary">{appName}</span>
             </h1>
             <p className="text-muted-foreground">
               Là nơi <span className="italic">bạn</span> có thể tìm kiếm và kết
@@ -25,7 +26,10 @@ export default function SignupPage() {
           </div>
           <div className="space-y-5">
             <SignUpForm />
-            <Link href="/login" className="block text-center hover:underline">
+            <Link
+              href={routes.login.path}
+              className="block text-center hover:underline"
+            >
               Đã có tài khoản? Đăng nhập ngay
             </Link>
           </div>

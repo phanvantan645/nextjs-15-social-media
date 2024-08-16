@@ -48,7 +48,7 @@ export async function generateMetadata({
   };
 }
 
-async function UserPage({ params: { username } }: PageProps) {
+export default async function UserPage({ params: { username } }: PageProps) {
   const { user: loggedInUserId } = await validateRequest();
 
   if (!loggedInUserId)
@@ -76,7 +76,6 @@ async function UserPage({ params: { username } }: PageProps) {
     </main>
   );
 }
-export default UserPage;
 
 interface UserProfileProps {
   user: UserData;

@@ -4,9 +4,10 @@ import Image from "next/image";
 import Link from "next/link";
 import LoginForm from "@/app/(auth)/login/login-form";
 import GoogleSigninButton from "@/app/(auth)/login/google-sigin-button";
+import { appName, routes } from "@/lib/utils";
 
 export const metadata: Metadata = {
-  title: "Đăng nhập",
+  title: routes.login.title,
 };
 
 export default function LoginPage() {
@@ -17,7 +18,7 @@ export default function LoginPage() {
           <div className="space-y-1 text-center">
             <h1 className="text-3xl font-bold">
               Đăng nhập vào{" "}
-              <span className="font-bold italic text-primary">handbook</span>
+              <span className="font-bold italic text-primary">{appName}</span>
             </h1>
             <p className="text-muted-foreground">
               Là nơi <span className="italic">bạn</span> có thể tìm kiếm và kết
@@ -34,7 +35,10 @@ export default function LoginPage() {
             <div>
               <GoogleSigninButton />
             </div>
-            <Link href="/signup" className="block text-center hover:underline">
+            <Link
+              href={routes.signup.path}
+              className="block text-center hover:underline"
+            >
               Chưa có tài khoản? Đăng ký ngay
             </Link>
           </div>

@@ -4,6 +4,7 @@ import { validateRequest } from "@/auth";
 import { Button } from "@/components/ui/button";
 import prisma from "@/lib/prisma";
 import streamServerClient from "@/lib/stream";
+import { routes } from "@/lib/utils";
 import { Bell, Bookmark, Home, Mail } from "lucide-react";
 import Link from "next/link";
 
@@ -30,12 +31,12 @@ async function MenuBar({ className }: MenuBarProps) {
       <Button
         variant="ghost"
         className="flex items-center justify-start gap-3"
-        title="Trang chủ"
+        title={routes.home.title}
         asChild
       >
-        <Link href="/">
+        <Link href={routes.home.path}>
           <Home />
-          <span className="hidden lg:inline">Trang chủ</span>
+          <span className="hidden lg:inline">{routes.home.title}</span>
         </Link>
       </Button>
       <NotificationButton
@@ -46,12 +47,12 @@ async function MenuBar({ className }: MenuBarProps) {
       <Button
         variant="ghost"
         className="flex items-center justify-start gap-3"
-        title="Dấu trang"
+        title={routes.bookmarks.title}
         asChild
       >
-        <Link href="/bookmarks">
+        <Link href={routes.bookmarks.path}>
           <Bookmark />
-          <span className="hidden lg:inline">Dấu trang</span>
+          <span className="hidden lg:inline">{routes.bookmarks.title}</span>
         </Link>
       </Button>
     </div>

@@ -1,4 +1,5 @@
 import { validateRequest } from "@/auth";
+import { routes } from "@/lib/utils";
 import { redirect } from "next/navigation";
 
 export default async function Layout({
@@ -8,7 +9,7 @@ export default async function Layout({
 }) {
   const { user } = await validateRequest();
 
-  if (user) redirect("/");
+  if (user) redirect(routes.home.path);
 
   return <>{children}</>;
 }

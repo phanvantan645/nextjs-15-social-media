@@ -40,3 +40,18 @@ export function slugify(str: string) {
     .replace(/ /g, "-")
     .replace(/[^a-z0-9-]/g, "");
 }
+
+export const routes = {
+  home: { path: "/", title: "Trang chủ" },
+  notifications: { path: "/notifications", title: "Thông báo" },
+  messages: { path: "/messages", title: "Tin nhắn" },
+  bookmarks: { path: "/bookmarks", title: "Dấu trang" },
+  users: { path: "/users", title: "Người dùng" },
+  posts: { path: "/posts", title: "Bài viết" },
+  search: { path: "/search", title: "Tìm kiếm" },
+  login: { path: "/login", title: "Đăng nhập" },
+  signup: { path: "/signup", title: "Đăng ký" },
+};
+
+export const appName = "handbook";
+export const appDescription = "Được thục hiện bởi Văn Tấn";

@@ -2,6 +2,7 @@ import MenuBar from "@/app/(main)/_components/menu-bar";
 import NavBar from "@/app/(main)/_components/navbar";
 import { validateRequest } from "@/auth";
 import SessionProvider from "@/lib/session-provider";
+import { routes } from "@/lib/utils";
 import { redirect } from "next/navigation";
 
 export default async function MainLayout({
@@ -11,7 +12,7 @@ export default async function MainLayout({
 }) {
   const session = await validateRequest();
 
-  if (!session.user) redirect("/login");
+  if (!session.user) redirect(routes.login.path);
 
   return (
     <SessionProvider value={session}>

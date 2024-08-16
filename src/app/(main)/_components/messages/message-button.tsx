@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import kyInstance from "@/lib/ky";
 import { MessageCountInfo } from "@/lib/types";
+import { routes } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";
 import { Bell, Mail } from "lucide-react";
 import Link from "next/link";
@@ -24,10 +25,10 @@ export default function MessageButton({ initialState }: MessageButtonProps) {
     <Button
       variant="ghost"
       className="flex items-center justify-start gap-3"
-      title="Tin nhắn"
+      title={routes.messages.title}
       asChild
     >
-      <Link href="/messages">
+      <Link href={routes.messages.path}>
         <div className="relative">
           <Mail />
           {!!data?.unreadCount && (
@@ -36,7 +37,7 @@ export default function MessageButton({ initialState }: MessageButtonProps) {
             </span>
           )}
         </div>
-        <span className="hidden lg:inline">Tin nhắn</span>
+        <span className="hidden lg:inline">{routes.messages.title}</span>
       </Link>
     </Button>
   );

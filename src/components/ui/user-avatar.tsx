@@ -17,7 +17,7 @@ function UserAvatar({
   avatarUrl,
   size,
   className,
-  hasPreview = true,
+  hasPreview = false,
 }: UserAvatarProps) {
   const [isShowImage, setIsShowImage] = useState(false);
 

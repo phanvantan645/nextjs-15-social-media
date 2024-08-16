@@ -8,7 +8,7 @@ export async function logout() {
   const { session } = await validateRequest();
 
   if (!session) {
-    throw new Error("Unauthorized");
+    throw new Error("Lỗi xác thực!");
   }
 
   await lucia.invalidateSession(session.id);

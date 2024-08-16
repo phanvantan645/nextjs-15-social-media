@@ -49,9 +49,9 @@ function SignUpForm() {
           name="username"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Username</FormLabel>
+              <FormLabel>Tài khoản</FormLabel>
               <FormControl>
-                <Input placeholder="Enter your username" {...field} />
+                <Input placeholder="Nhập tài khoản của bạn" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -64,7 +64,11 @@ function SignUpForm() {
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input placeholder="Enter your email" type="email" {...field} />
+                <Input
+                  placeholder="Nhập email của bạn"
+                  type="email"
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -75,16 +79,16 @@ function SignUpForm() {
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Password</FormLabel>
+              <FormLabel>Mật khẩu</FormLabel>
               <FormControl>
-                <PasswordInput placeholder="Enter your password" {...field} />
+                <PasswordInput placeholder="Nhập mật khẩu của bạn" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
         <LoadingButton loading={isPending} type="submit" className="w-full">
-          Create account
+          Đăng ký
         </LoadingButton>
       </form>
     </Form>

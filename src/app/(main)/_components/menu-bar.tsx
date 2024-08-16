@@ -1,4 +1,9 @@
+import MessageButton from "@/app/(main)/_components/messages/message-button";
+import NotificationButton from "@/app/(main)/_components/notifications/notification-button";
+import { validateRequest } from "@/auth";
 import { Button } from "@/components/ui/button";
+import prisma from "@/lib/prisma";
+import streamServerClient from "@/lib/stream";
 import { Bell, Bookmark, Home, Mail } from "lucide-react";
 import Link from "next/link";
 
@@ -6,13 +11,26 @@ interface MenuBarProps {
   className?: string;
 }
 
-function MenuBar({ className }: MenuBarProps) {
+async function MenuBar({ className }: MenuBarProps) {
+  const { user } = await validateRequest();
+  if (!user) return null;
+
+  const [unreadNotificationCount, unreadMessageCount] = await Promise.all([
+    prisma.notification.count({
+      where: {
+        recipientId: user.id,
+        read: false,
+      },
+    }),
+    (await streamServerClient.getUnreadCount(user.id)).total_unread_count,
+  ]);
+
   return (
     <div className={className}>
       <Button
         variant="ghost"
         className="flex items-center justify-start gap-3"
-        title="Home"
+        title="Trang chủ"
         asChild
       >
         <Link href="/">
@@ -20,37 +38,20 @@ function MenuBar({ className }: MenuBarProps) {
           <span className="hidden lg:inline">Trang chủ</span>
         </Link>
       </Button>
+      <NotificationButton
+        initialState={{ unreadCount: unreadNotificationCount }}
+      />
+      <MessageButton initialState={{ unreadCount: unreadMessageCount }} />
+
       <Button
         variant="ghost"
         className="flex items-center justify-start gap-3"
-        title="Notifications"
-        asChild
-      >
-        <Link href="/notifications">
-          <Bell />
-          <span className="hidden lg:inline">Thông báo</span>
-        </Link>
-      </Button>
-      <Button
-        variant="ghost"
-        className="flex items-center justify-start gap-3"
-        title="Messages"
-        asChild
-      >
-        <Link href="/messages">
-          <Mail />
-          <span className="hidden lg:inline">Tin nhắn</span>
-        </Link>
-      </Button>
-      <Button
-        variant="ghost"
-        className="flex items-center justify-start gap-3"
-        title="Bookmarks"
+        title="Dấu trang"
         asChild
       >
         <Link href="/bookmarks">
           <Bookmark />
-          <span className="hidden lg:inline">Danh mục</span>
+          <span className="hidden lg:inline">Dấu trang</span>
         </Link>
       </Button>
     </div>

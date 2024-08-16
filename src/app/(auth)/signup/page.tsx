@@ -5,7 +5,7 @@ import Link from "next/link";
 import SignUpForm from "@/app/(auth)/signup/signup-form";
 
 export const metadata: Metadata = {
-  title: "Sign up",
+  title: "Đăng ký",
 };
 
 export default function SignupPage() {
@@ -14,16 +14,19 @@ export default function SignupPage() {
       <div className="flex h-full max-h-[40rem] w-full max-w-[64rem] overflow-hidden rounded-2xl bg-card shadow-2xl">
         <div className="w-full space-y-10 overflow-y-auto p-10 md:w-1/2">
           <div className="space-y-1 text-center">
-            <h1 className="text-3xl font-bold">Sign up handbook</h1>
+            <h1 className="text-3xl font-bold">
+              Đăng ký vào{" "}
+              <span className="font-bold italic text-primary">handbook</span>
+            </h1>
             <p className="text-muted-foreground">
-              A place when even <span className="italic">you</span> can find
-              friend
+              Là nơi <span className="italic">bạn</span> có thể tìm kiếm và kết
+              bạn
             </p>
           </div>
           <div className="space-y-5">
             <SignUpForm />
             <Link href="/login" className="block text-center hover:underline">
-              Already have an account? Log in
+              Đã có tài khoản? Đăng nhập ngay
             </Link>
           </div>
         </div>

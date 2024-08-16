@@ -25,7 +25,7 @@ export async function login(
 
     if (!existingUser || !existingUser.passwordHash) {
       return {
-        error: "Incorrect username or password",
+        error: "Tài khoản hoặc mật khẩu không chính xác",
       };
     }
 
@@ -38,7 +38,7 @@ export async function login(
 
     if (!validPassword) {
       return {
-        error: "Incorrect username or password",
+        error: "Tài khoản hoặc mật khẩu không chính xác",
       };
     }
 
@@ -54,7 +54,7 @@ export async function login(
     console.log(error);
     if (isRedirectError(error)) throw error;
     return {
-      error: "Something went wrong. Please try again.",
+      error: "Có lỗi xãy ra! Vui lòng thử lại sau.",
     };
   }
 }

@@ -1,15 +1,16 @@
 import { validateRequest } from "@/auth";
-import { Button } from "@/components/ui/button";
+import FollowButton from "@/components/ui/follow-button";
 import UserAvatar from "@/components/ui/user-avatar";
+import UserTooltip from "@/components/ui/user-tooltip";
 import prisma from "@/lib/prisma";
-import { userDataSelect } from "@/lib/types";
+import { getUserDataSelect } from "@/lib/types";
 import { formatNumber } from "@/lib/utils";
 import { Loader2 } from "lucide-react";
 import { unstable_cache } from "next/cache";
 import Link from "next/link";
 import { Suspense } from "react";
 
-function TrendsSidebar() {
+export default function TrendsSidebar() {
   return (
     <div className="sticky top-[5.25rem] hidden h-fit w-72 flex-none space-y-5 md:block lg:w-80">
       <Suspense fallback={<Loader2 className="mx-auto animate-spin" />}>
@@ -19,8 +20,6 @@ function TrendsSidebar() {
     </div>
   );
 }
-
-export default TrendsSidebar;
 
 async function WhowToFollow() {
   const { user } = await validateRequest();
@@ -33,8 +32,13 @@ async function WhowToFollow() {
       NOT: {
         id: user?.id,
       },
+      followers: {
+        none: {
+          followerId: user?.id,
+        },
+      },
     },
-    select: userDataSelect,
+    select: getUserDataSelect(user.id),
     take: 5,
   });
   return (
@@ -42,21 +46,31 @@ async function WhowToFollow() {
       <div className="text-xl font-bold">Có thể bạn có thể biết</div>
       {usersToFollow.map((user) => (
         <div key={user.id} className="flex items-center justify-between gap-3">
-          <Link
-            href={`/users/${user.username}`}
-            className="flex items-center gap-3"
-          >
-            <UserAvatar avatarUrl={user.avatarUrl} className="flex-none" />
-            <div>
-              <p className="line-clamp-1 break-all font-semibold hover:underline">
-                {user.displayName}
-              </p>
-              <p className="line-clamp-1 break-all text-muted-foreground">
-                @{user.username}
-              </p>
-            </div>
-          </Link>
-          <Button>Theo dõi</Button>
+          <UserTooltip user={user}>
+            <Link
+              href={`/users/${user.username}`}
+              className="flex items-center gap-3"
+            >
+              <UserAvatar avatarUrl={user.avatarUrl} className="flex-none" />
+              <div>
+                <p className="line-clamp-1 break-all font-semibold hover:underline">
+                  {user.displayName}
+                </p>
+                <p className="line-clamp-1 break-all text-muted-foreground">
+                  @{user.username}
+                </p>
+              </div>
+            </Link>
+          </UserTooltip>
+          <FollowButton
+            userId={user.id}
+            initialState={{
+              followers: user._count.followers,
+              isFollowedByUser: !!user.followers.some(
+                ({ followerId }) => followerId === user.id,
+              ),
+            }}
+          />
         </div>
       ))}
     </div>
@@ -100,7 +114,7 @@ async function TrendingTopics() {
               {hashtag}
             </p>
             <p className="text-sm text-muted-foreground">
-              {formatNumber(1100000)} {count === 1 ? "post" : "posts"}
+              {formatNumber(count)} Bài viết
             </p>
           </Link>
         );

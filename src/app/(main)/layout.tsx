@@ -4,7 +4,7 @@ import { validateRequest } from "@/auth";
 import SessionProvider from "@/lib/session-provider";
 import { redirect } from "next/navigation";
 
-export default async function Layout({
+export default async function MainLayout({
   children,
 }: {
   children: React.ReactNode;

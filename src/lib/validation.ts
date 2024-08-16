@@ -1,14 +1,14 @@
 import { z } from "zod";
 
-const requiredString = z.string().trim().min(1, "This field is required");
+const requiredString = z.string().trim().min(1, "Không được để trống");
 
 export const signupSchema = z.object({
-  email: requiredString.email("Email must be a valid email"),
+  email: requiredString.email("Không định dạng được email"),
   username: requiredString.regex(
     /^[a-zA-Z0-9]+$/,
-    "Username must only contain letters and numbers, - and _ allow",
+    "Tải khoản phải bằng chữ, số và chấp nhận - với _",
   ),
-  password: requiredString.min(8, "Password must be at least 8 characters"),
+  password: requiredString.min(8, "Mật khẩu ít nhất 8 ký tụ trở lên"),
 });
 
 export type SignUpValues = z.infer<typeof signupSchema>;
@@ -21,5 +21,17 @@ export const loginSchema = z.object({
 export type LoginValues = z.infer<typeof loginSchema>;
 
 export const createPostSchema = z.object({
+  content: requiredString,
+  mediaIds: z.array(z.string()).max(5, "Không thể tải quá 5 tệp đính kèm"),
+});
+
+export const updateUserProfileSchema = z.object({
+  displayName: requiredString,
+  bio: z.string().max(1000, "Chỉ có thể dùng 1000 ký tụ"),
+});
+
+export type UpdateUserProfileValues = z.infer<typeof updateUserProfileSchema>;
+
+export const createCommentSchema = z.object({
   content: requiredString,
 });

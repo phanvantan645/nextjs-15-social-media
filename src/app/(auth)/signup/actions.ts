@@ -2,6 +2,7 @@
 
 import { lucia } from "@/auth";
 import prisma from "@/lib/prisma";
+import streamServerClient from "@/lib/stream";
 import { signupSchema, SignUpValues } from "@/lib/validation";
 import { hash } from "@node-rs/argon2";
 import { generateIdFromEntropySize } from "lucia";
@@ -34,7 +35,7 @@ export async function signUp(
 
     if (existingUsername) {
       return {
-        error: "Username already exists",
+        error: "Tài khoản đã tồn tại",
       };
     }
 
@@ -49,18 +50,25 @@ export async function signUp(
 
     if (existingEmail) {
       return {
-        error: "Email already taken",
+        error: "Email đã tồn tại",
       };
     }
 
-    await prisma.user.create({
-      data: {
+    await prisma.$transaction(async (tx) => {
+      await tx.user.create({
+        data: {
+          id: userId,
+          username,
+          displayName: username,
+          email,
+          passwordHash,
+        },
+      });
+      await streamServerClient.upsertUser({
         id: userId,
         username,
-        displayName: username,
-        email,
-        passwordHash,
-      },
+        name: username,
+      });
     });
 
     const session = await lucia.createSession(userId, {});
@@ -77,7 +85,7 @@ export async function signUp(
     if (isRedirectError(error)) throw error;
     console.error(error);
     return {
-      error: "Something went wrong. Please try again.",
+      error: "Xảy ra lỗi! Vui lòng thử lại sau.",
     };
   }
 }

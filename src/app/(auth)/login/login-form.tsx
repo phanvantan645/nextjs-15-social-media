@@ -48,9 +48,9 @@ function LoginForm() {
           name="username"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Username</FormLabel>
+              <FormLabel>Tài khoản</FormLabel>
               <FormControl>
-                <Input placeholder="Enter your username" {...field} />
+                <Input placeholder="Nhập tài khoản của bạn" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -61,16 +61,16 @@ function LoginForm() {
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Password</FormLabel>
+              <FormLabel>Mật khẩu</FormLabel>
               <FormControl>
-                <PasswordInput placeholder="Enter your password" {...field} />
+                <PasswordInput placeholder="Nhập mật khẩu của bạn" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
         <LoadingButton loading={isPending} type="submit" className="w-full">
-          Login
+          Đăng nhập
         </LoadingButton>
       </form>
     </Form>

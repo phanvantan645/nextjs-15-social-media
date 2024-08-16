@@ -17,6 +17,7 @@ import UserAvatar from "@/components/ui/user-avatar";
 import { useSession } from "@/lib/session-provider";
 import { cn } from "@/lib/utils";
 import { DropdownMenuArrow } from "@radix-ui/react-dropdown-menu";
+import { useQueryClient } from "@tanstack/react-query";
 import {
   CheckIcon,
   LogOutIcon,
@@ -35,6 +36,9 @@ interface UserButtonProps {
 function UserButton({ className }: UserButtonProps) {
   const { user } = useSession();
   const { theme, setTheme } = useTheme();
+
+  const queryClient = useQueryClient();
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -48,7 +52,7 @@ function UserButton({ className }: UserButtonProps) {
           <span className="font-bold italic">@{user.username}</span>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <Link href={`/user/${user.username}`}>
+        <Link href={`/users/${user.username}`}>
           <DropdownMenuItem className="cursor-pointer">
             <UserIcon className="mr-2 h-4 w-4" /> Trang cá nhân
           </DropdownMenuItem>
@@ -91,6 +95,7 @@ function UserButton({ className }: UserButtonProps) {
         <DropdownMenuItem
           className="cursor-pointer"
           onClick={() => {
+            queryClient.clear();
             logout();
           }}
         >

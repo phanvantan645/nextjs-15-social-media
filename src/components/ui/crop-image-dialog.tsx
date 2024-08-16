@@ -34,7 +34,7 @@ export default function CropImageDialog({
 
   return (
     <Dialog open onOpenChange={onClose}>
-      <DialogContent className="max-h-[600px] max-w-[600px] overflow-y-scroll">
+      <DialogContent className="max-h-[600px] max-w-[600px]">
         <DialogHeader>
           <DialogTitle>Cắt ảnh</DialogTitle>
         </DialogHeader>
@@ -43,7 +43,7 @@ export default function CropImageDialog({
           aspectRatio={cropAspectRatio}
           zoomable={false}
           ref={croppedRef}
-          className="mx-auto size-full"
+          className="m-auto max-h-[450px] w-full overflow-hidden"
         />
         <DialogFooter>
           <Button variant="secondary" onClick={onClose}>
